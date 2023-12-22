@@ -7,7 +7,7 @@ import "./App.css";
 import WeatherData from "../../@types/weather";
 
 function App() {
-  const [city, setCity] = useState<string>("");
+  const [city, setCity] = useState<string | number>("");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const fetchData = async () => {
