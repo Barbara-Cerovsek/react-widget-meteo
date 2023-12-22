@@ -7,10 +7,13 @@ import "./App.css";
 import WeatherData from "../../@types/weather";
 
 function App() {
-  const [zip, setZip] = useState(64500);
+  const [zip, setZip] = useState<string>("");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const fetchData = async () => {
+    if (!zip) {
+      return;
+    }
     const API_KEY = import.meta.env.VITE_API_KEY;
 
     const response = await axios.get(
