@@ -10,18 +10,24 @@ function App() {
   const [city, setCity] = useState<string | number>("");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
+  
   const fetchData = async () => {
     if (!city) {
       return;
     }
     const API_KEY = import.meta.env.VITE_API_KEY;
-
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-    );
-
-    setWeatherData(response.data);
-  };
+   
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      );
+   
+      setWeatherData(response.data);
+    } catch (error) {
+      console.error("Fetch failed", error);
+    }
+   };
+  
 
   useEffect(() => {
     fetchData();
