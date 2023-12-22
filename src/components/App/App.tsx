@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Icon } from "semantic-ui-react";
@@ -6,18 +6,14 @@ import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import WeatherData from "../../@types/weather";
 
-
-
 function App() {
   const [zip, setZip] = useState(64500);
-  const [weatherData, setWeatherData] = useState<WeatherData>(null);
-
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const fetchData = async () => {
     const API_KEY = import.meta.env.VITE_API_KEY;
-    
+
     const response = await axios.get(
-      
       `https://api.openweathermap.org/data/2.5/weather?q=${zip}&appid=${API_KEY}&units=metric`
     );
 
@@ -28,11 +24,11 @@ function App() {
     fetchData();
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setZip(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetchData();
   };
