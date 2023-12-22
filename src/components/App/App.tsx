@@ -43,7 +43,7 @@ function App() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Enter city zipcode"
+          placeholder="Enter city or zipcode"
           value={city}
           onChange={handleInputChange}
         />
