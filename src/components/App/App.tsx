@@ -4,23 +4,23 @@ import axios from "axios";
 import { Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import "./App.css";
+import WeatherData from "../../@types/weather";
+
+
 
 function App() {
   const [zip, setZip] = useState(64500);
-  const [weatherData, setWeatherData] = useState(null);
+  const [weatherData, setWeatherData] = useState<WeatherData>(null);
 
-  const fahrenheitToCelsius = (fahren) => {
-    return Math.round(fahren - 273.15);
-  };
 
   const fetchData = async () => {
+    const API_KEY = import.meta.env.VITE_API_KEY;
+    
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${zip}&appid=44b69afe1e2a24d74186cc777a88f9a2`
+      
+      `https://api.openweathermap.org/data/2.5/weather?q=${zip}&appid=${API_KEY}&units=metric`
     );
 
-    if (response.data) {
-      response.data.main.temp = fahrenheitToCelsius(response.data.main.temp);
-    }
     setWeatherData(response.data);
   };
 
