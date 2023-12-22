@@ -7,17 +7,17 @@ import "./App.css";
 import WeatherData from "../../@types/weather";
 
 function App() {
-  const [zip, setZip] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const fetchData = async () => {
-    if (!zip) {
+    if (!city) {
       return;
     }
     const API_KEY = import.meta.env.VITE_API_KEY;
 
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${zip}&appid=${API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
 
     setWeatherData(response.data);
@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setZip(e.target.value);
+    setCity(e.target.value);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -44,7 +44,7 @@ function App() {
         <input
           type="text"
           placeholder="Enter city zipcode"
-          value={zip}
+          value={city}
           onChange={handleInputChange}
         />
       </form>
